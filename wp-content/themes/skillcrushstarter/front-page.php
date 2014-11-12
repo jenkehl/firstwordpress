@@ -36,12 +36,7 @@ get_header(); ?>
 
           </div>
 
-          <div class="social-btns">
-            <a href="http://www.twitter.com/jenkehl" class="soc-icon tw"></a>
-            <a href="" class="soc-icon fb"></a>
-            <a href="" class="soc-icon ln"></a>
-            <a href="" class="soc-icon db"></a>
-          </div>
+
           <a href="http://localhost:8888/wordpress/blog/" class="btn">View My Blog </a>
         </div>
 

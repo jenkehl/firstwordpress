@@ -120,7 +120,7 @@ a:hover {
 	color: inherit;
 	font-weight: bold;
 	text-decoration: none;
-	border-bottom: 1px solid;
+ /*	border-bottom: 1px solid; */
 	line-height: 1.1em;
 	display: inline-block;
 }
@@ -137,7 +137,7 @@ a:hover {
 	margin: 35px 0;
 }
 .social-btns .soc-icon {
-	background: url(../img/soc-sprite.png) no-repeat;
+	background: url(img/soc-sprite.png) no-repeat;
 	display: inline-block;
 	height: 22px;
 	width: 22px;
@@ -148,7 +148,7 @@ a:hover {
     transition: 500ms ease-in-out;
 }
 .social-btns .soc-icon.tw {
-	background-position: 0 0 url(http://localhost:8888/wordpress/wp-content/uploads/2014/10/facebook_colour_24-03.png);
+	background-position: 0px 0;
 }
 .social-btns .soc-icon.fb {
 	background-position: -28px 0;
