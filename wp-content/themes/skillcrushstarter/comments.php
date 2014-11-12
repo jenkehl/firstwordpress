@@ -18,13 +18,13 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="comments-area default-form">
 
 	<?php if ( have_comments() ) : ?>
 
 	<h5 class="comments-title">
 		<?php
-			printf( _n( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'skillcrushstarter' ),
+			printf( _n( 'One comment', '%1$s comments', get_comments_number(), 'skillcrushstarter' ),
 				number_format_i18n( get_comments_number() ), get_the_title() );
 		?>
 	</h5>
@@ -37,15 +37,25 @@ if ( post_password_required() ) {
 	</nav><!-- #comment-nav-above -->
 	<?php endif; // Check for comment navigation. ?>
 
-	<ol class="comment-list">
-		<?php
+	<!-- <ol class="comment-list"> -->
+<!-- 		<//?php
 			wp_list_comments( array(
 				'style'      => 'ol',
 				'short_ping' => true,
 				'avatar_size'=> 34,
 			) );
-		?>
-	</ol><!-- .comment-list -->
+
+
+		?> -->
+	<!-- </ol> --><!-- .comment-list -->
+
+
+	<!-- This is calling the custom function 'mytheme_comment' in functions.php - which will override the default in comment-template.php -->
+
+	<ul class="commentlist">
+		<?php wp_list_comments( 'type=comment&callback=mytheme_comment' ); ?>
+	</ul> <!-- /comment-list -->
+
 
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
 	<nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
@@ -61,6 +71,29 @@ if ( post_password_required() ) {
 
 	<?php endif; // have_comments() ?>
 
-	<?php comment_form(); ?>
+<!-- This is customizing the comment form by using new arguments -> '$comments-args' - that are then passed in the comment_form function, which overrides the
+default comment_form function that lives in comment-template.php -->
+
+<?php $comment_args = array(
+	// change the title of the reply section
+	'title_reply'=>'Leave a Comment',
+	// change the title of send button
+	'label_submit'=>'Submit Comment',
+	'fields' => apply_filters( 'comment_form_default_fields', array(
+			'author' => '<p class="comment-form-author">' . '<label for="author">' . __( 'Name' ) . '</label> ' .
+						'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . ' /></p>',
+			'email'  => '<p class="comment-form-email">' . '<label for="email">' . __( 'Email (hidden)' ) . '</label> ' .
+						'<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . ' />'.'</p>',
+			'url'    => '' ) ),
+	// redefine your own textarea (the comment body)
+	'comment_field' => '<p>' . '<label for="comment">' . __( 'Your Comment' ) . '</label>' .
+						'<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>' . '</p>',
+	// "Text or HTML to be displayed after the set of comment fields"
+	'comment_notes_after' => '',
+
+);
+
+comment_form($comment_args); ?>
+
 
 </div><!-- #comments -->
